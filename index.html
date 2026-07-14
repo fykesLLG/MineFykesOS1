@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный Профиль Игрока | ReallyWorld 2026</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 1. СТАРТОВЫЙ ЭКРАН-ШТОРКА (ОНБОРДИНГ) -->
+    <div id="welcome-screen" class="screen-slide">
+        <div class="welcome-modal">
+            <h2 class="neon-text">Привет, бро! 👑</h2>
+            <p class="alert-msg">Для начала пройди начальный тест, чтобы выполнить несколько заданий для обучения.</p>
+            <div class="test-table">
+                <div class="table-header"><span>Предмет</span><span>Кол-во</span><span>Описание</span><span>Статус</span></div>
+                <div id="intro-tasks-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. ГЛАВНЫЙ ИНТЕРФЕЙС ХАБА -->
+    <div id="main-hub" class="screen-slide hidden-right">
+        
+        <!-- ЛЕВАЯ ПАНЕЛЬ: ПРОФИЛЬ -->
+        <aside class="profile-panel">
+            <div class="user-info">
+                <div class="user-avatar">⚔️</div>
+                <h2 id="player-nick">AlexFykes_Friend</h2>
+                <div class="badge">Грифер 2026</div>
+            </div>
+            
+            <div class="stats-box">
+                <div class="stat-item">
+                    <span>Сюжетный прогресс:</span>
+                    <strong id="story-progress-percent" class="neon-orange">0%</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Личный вклад:</span>
+                    <strong id="clan-deposit-amount" class="neon-green">0 $</strong>
+                </div>
+            </div>
+
+            <nav class="hub-nav">
+                <button class="nav-btn active" data-tab="tab-story">🗺️ Сюжетные линии</button>
+                <button class="nav-btn" data-tab="tab-base">🏡 Квесты Базы</button>
+                <button class="nav-btn" data-tab="tab-faction" id="nav-btn-faction" disabled>🛡️ Квесты Фракции (🔒)</button>
+                <button class="nav-btn" data-tab="tab-info">📜 Ознакомление и Устав</button>
+                <button class="nav-btn" data-tab="tab-commands">💻 Команды и Ошибки</button>
+            </nav>
+        </aside>
+
+        <!-- ПРАВАЯ ЧАСТЬ: КОНТЕНТ ВКЛАДОК -->
+        <main class="content-area">
+            
+            <!-- ВКЛАДКА 1: СЮЖЕТНЫЕ КВЕСТЫ -->
+            <section id="tab-story" class="tab-content active-tab">
+                <h1 class="tab-title">Сюжетная линия (Основа)</h1>
+                <div class="quest-list" id="story-quests-list"></div>
+            </section>
+
+            <!-- ВКЛАДКА 2: КВЕСТЫ БАЗЫ -->
+            <section id="tab-base" class="tab-content">
+                <h1 class="tab-title">Улучшение Базы</h1>
+                <div class="quest-list" id="base-quests-list"></div>
+            </section>
+
+            <!-- ВКЛАДКА 3: КВЕСТЫ ФРАКЦИИ -->
+            <section id="tab-faction" class="tab-content">
+                <h1 class="tab-title">Военная Фракция</h1>
+                <p class="faction-alert" id="faction-lock-msg">Доступ заблокирован. Выполните все сюжетные квесты и квесты базы!</p>
+                <div class="quest-list" id="faction-quests-list"></div>
+            </section>
+
+            <!-- ВКЛАДКА 4: ОЗНАКОМЛЕНИЕ И УСТАВ -->
+            <section id="tab-info" class="tab-content">
+                <h1 class="tab-title">Устав, Экономика и Логика</h1>
+                <div class="card doc-card">
+                    <h3>📜 Устав Команды (Свод Правил)</h3>
+                    <p>1. Полная секретность координат. За слив базы — кик и занесение в черный список.</p>
+                    <p>2. Взаимовыручка. Если соклановца зажали в трапку, бросай дела и лети на помощь.</p>
+                </div>
+                <div class="card doc-card">
+                    <h3>📊 Экономическая логика</h3>
+                    <p>Редстоун, лазурит и железо — общие ресурсы. Алмазы и незерит распределяются лидером.</p>
+                </div>
+                <div class="card doc-card">
+                    <h3>⚖️ Пользовательское соглашение</h3>
+                    <p>Вступая в команду, ты обязуешься не воровать из общих сундуков и уважать соклановцев.</p>
+                </div>
+            </section>
+
+            <!-- ВКЛАДКА 5: КОМАНДЫ И ОШИБКИ -->
+            <section id="tab-commands" class="tab-content">
+                <h1 class="tab-title">20 Важных Команд и Ошибки (Актуально на 2026)</h1>
+                <div class="commands-grid" id="commands-container"></div>
+                <h2 class="tab-title" style="margin-top:30px;">⚠️ Критические Ошибки Новичков</h2>
+                <div class="card error-card">
+                    <p><strong>Ошибка 1:</strong> Принимать запросы на телепортацию (`/tpaccept`) от незнакомцев на базе. Вас закомбят или зальют лавой.</p>
+                    <p><strong>Ошибка 2:</strong> Забывать проверять регион командой `/rg info`. Гриферы могут найти дыру в привате и зарейдить.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Модальное окно для книг/подсказок -->
+    <div id="book-modal" class="modal-hidden">
+        <div class="book-content">
+            <span class="close-book" onclick="closeBook()">&times;</span>
+            <div id="book-text"></div>
+        </div>
+    </div>
+
+    <!-- Скрипты будут в следующих частях -->
+    <script src="resources.js"></script>
+    <script src="navigation.js"></script>
+</body>
+</html>
